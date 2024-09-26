@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG CUDA=11.8.0
+ARG CUDA=12.2.2
 FROM nvidia/cuda:${CUDA}-cudnn8-runtime-ubuntu20.04
 # FROM directive resets ARGS, so we specify again (the value is retained if
 # previously set).
@@ -56,7 +56,7 @@ RUN wget -q -P /tmp \
 ENV PATH="/opt/conda/bin:$PATH"
 ENV LD_LIBRARY_PATH="/opt/conda/lib:$LD_LIBRARY_PATH"
 RUN conda install -qy conda==24.1.2 pip python=3.11 \
-    && conda install -y -c conda-forge cudatoolkit=${CUDA_VERSION} \
+    && conda install -y -c nvidia/label/cuda-12.2.2 cuda=${CUDA_VERSION} \
     && conda install -y -c conda-forge openmm=8.0.0 pdbfixer \
     && conda clean --all --force-pkgs-dirs --yes
 
